@@ -1,0 +1,25 @@
+Open the file string.php in ‘public_html\joomla\libraries\joomla\string\’ directory. Go to the line 27.
+
+Now change the lines below:
+
+if (function_exists('iconv'))
+{
+// These are settings that can be set inside code
+iconv_set_encoding("internal_encoding", "UTF-8");
+iconv_set_encoding("input_encoding", "UTF-8");
+iconv_set_encoding("output_encoding", "UTF-8");
+}
+
+to the following:
+
+if (function_exists('iconv') && PHP_VERSION_ID < 50600)
+{
+// These are settings that can be set inside code
+iconv_set_encoding("internal_encoding", "UTF-8");
+iconv_set_encoding("input_encoding", "UTF-8");
+iconv_set_encoding("output_encoding", "UTF-8");
+}
+elseif (PHP_VERSION_ID >= 50600)
+{
+ini_set("default_charset", "UTF-8");
+}
